@@ -1,16 +1,16 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
+import rospkg
 import rospy
-from std_msgs.msg import Int
+from std_msgs.msg import Int32
 
 def printer(data):
-    rate = rospy.Rate(10) # 10hz
-    while not rospy.is_shutdown():
-        print('I see' + str(data))
-        rate.sleep()
+    rospy.loginfo("saw %s", data.data)
+    print('I see' + str(data.data))
+    rospy.spin() #why doesn't it keep running
 
 def notmain():
     rospy.init_node('spy', anonymous=True)
-    rospy.Subscriber('addout', Int, printer)
+    rospy.Subscriber('addout', Int32, printer)
 
 if __name__ == '__main__':
     notmain()
